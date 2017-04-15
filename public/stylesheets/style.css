@@ -1,0 +1,37 @@
+body {
+	margin:0px;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+div.nav{
+	padding: 15px;
+    text-align: center;
+    color: #00509d;
+	position:relative;
+	border-bottom: 3px solid #dadada;
+}
+div.nav h3{margin:5px 0px;}
+.nav .btn.login{
+    position: absolute;
+    right: 25px;
+    top: 33%;
+}
+section.main{
+	height: 100%;
+    background-color: #f7f7f7;
+	padding:2%;
+}
+.main .content{
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.49);
+    border-radius: 15px;
+	padding:25px;
+}
+a {color: #00B7FF;}
+
+
+.t_center{text-align:center;}
+.t_right{text-align:right;}
+.t_left{text-align:left;}
+.hidden{display:hidden !important;}
+
+/*# sourceMappingURL=style.css.map */

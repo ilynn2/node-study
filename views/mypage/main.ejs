@@ -1,0 +1,38 @@
+<%include ../_header.ejs%>
+<link rel="stylesheet" type="text/css" href="/stylesheets/mypage.css">
+
+<div class="content">
+	<h4 style="margin:5px 0px;">비밀번호를 입력해 주세요</h4>
+	<div class="confirm">
+		<input type="password" id="confirm_pwd">
+		<span class="btn_show" _target="#confirm_pwd">
+			<i class="fa fa-eye" aria-hidden="true"></i>
+		</span>
+	</div>
+	<div class="inline">
+		<button class="confirm"><i class="fa fa-check"></i></button>
+	</div>
+	
+	
+</div>
+<script>
+	$('button.confirm').on('click',function(){
+		if(!$('#confirm_pwd').val())	alert('비밀번호를 입력해주세요');
+		else							chkPwd();
+	});
+	function chkPwd(){
+		$.ajax({
+			url:'/mypage/chkPassword'
+			,data:{pwd:$('#confirm_pwd').val()}
+			,type:'POST'
+			,dataType :'json'
+			,success:function(res){
+				if(!res)	alert('비밀번호가 틀렸습니다.');
+				else{
+					location.href="/mypage/edit";
+				}
+			}
+		});
+	}
+</script>
+<%include ../_footer.ejs%>

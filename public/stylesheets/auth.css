@@ -1,0 +1,30 @@
+.login_modal form{display:inline-block;}
+table.tb th,table.tb td{padding:5px;}
+table.tb td{position:relative;}
+
+table.tb td input[type="text"],
+table.tb td input[type="password"],
+table.tb td input[type="date"]{
+	width:200px;
+	height:25px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	padding:1px 5px;
+}
+
+
+table.tb td input[type="text"].err,
+table.tb td input[type="password"].err,
+table.tb td input[type="date"].err
+{border-color:#ff8e8e;color:#ff8e8e;}
+
+table.tb td button{height: 25px;border: 1px solid #ddd;border-radius: 5px;background-color: white;}
+
+table.tb td .btn_show{position:absolute;top:24%;right:10px;color:#909090;cursor:pointer;}
+
+
+.choose{list-style:none;float:left;width:100%;padding:0px;margin:0px;margin-bottom:20px;}
+.choose li{float:left;width:49%;padding:15px 0px;background-color:#f5f2f2;border-bottom:1px solid #ddd;}
+.choose li.on{border:1px solid #ddd; border-bottom:none;background-color: rgba(0,0,0,0);}
+
+.choose:after{clear:both;}

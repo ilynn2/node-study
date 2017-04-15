@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <style>
+        table.join tr th{text-align:right;}
+    </style>
+    <h1><%= title %></h1>
+
+    <form action="addUser" method="post">
+        <table class="join">
+            <tr>
+                <th>ID</th>
+                <td>
+                    <input type="text" name="user" placeholder="insert your id">
+                </td>
+                <td>
+                    <input type="button" value="check" onclick="exist_chk(this.form)">
+                </td>
+            </tr>
+            <tr>
+                <th>PassWord</th>
+                <td><input type="password" name="pwd"  placeholder="insert your password"></td>
+                <td><label id="help_pwd"></label></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><input type="password" name="pwdchk" placeholder="repeat your password" onblur="chkPwd(this.form)"></td>
+                <td><label id="help_pwdchk"></label></td>
+            </tr>
+
+            <tr>
+                <th>name</th>
+                <td colspan="2"><input type="text" name="name" placeholder="insert your name"></td>
+            </tr>
+
+            <tr>
+                <td colspan="3" style="text-align:center">
+                    <input type="submit" value="send">
+                </td>
+            </tr>
+
+        </table>
+    </form>
+    <script>
+        function chkPwd(f){
+           err = (f.pwd.value==f.pwdchk.value)?0:-1;
+           if(err<0) alert('check your password');
+        }
+        function exist_chk(f){
+           //ajax Call
+        }
+    </script>
+  </body>
+</html>

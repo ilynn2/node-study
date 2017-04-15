@@ -1,0 +1,45 @@
+body {margin:0px;font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;}
+a {text-decoration:none;color:black;}
+
+.t_center{text-align:center;}
+.t_right{text-align:right;}
+.t_left{text-align:left;}
+.hidden{display:none !important;}
+
+
+div.nav{
+	padding: 15px;
+    text-align: center;
+    color: #00509d;
+	position:relative;
+	border-bottom: 3px solid #dadada;
+}
+div.nav h3{margin:5px 0px;}
+
+.nav .btn{position: absolute;top: 33%;}
+.btn.login{right: 25px;}
+.btn.cate{left:25px;}
+
+
+section.main{
+	height: 100%;
+    background-color: #f7f7f7;
+	padding:2%;
+}
+.main .content{
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.49);
+    border-radius: 15px;
+	padding:25px;
+	text-align:center;
+}
+
+#forMembers ul{margin:0px;padding:0px;background-color:white;border:1px solid #EEE;list-style:none;}
+#forMembers ul li{padding:5px;}
+#forMembers ul li.separate{padding:0px;border-bottom:1px solid #EEE;}
+
+
+
+
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,5 @@
+div.confirm{position:relative;display: inline-block;}
+.btn_show{position: absolute;top: 10%;right: 10px;color: #BBB;cursor:pointer;}
+.confirm input{width: 170px;height: 20px;border-radius: 5px;border: 1px solid #EEE;padding:1px 5px;}
+.inline{display:inline-block;}
+.inline button{height: 23px;border: 1px solid #EEE;background-color: #fff;border-radius: 5px;width: 30px;}

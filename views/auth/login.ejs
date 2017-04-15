@@ -1,0 +1,30 @@
+<%include ../_header.ejs%>
+<link rel="stylesheet" type="text/css" href="/stylesheets/auth.css">
+<div class="content">
+	<div class="login_modal t_center">
+		<ul class="choose">
+			<li class="on">로그인</li>
+			<li><a href="/user/join">회원가입</a></li>
+		</ul>
+		<form action="/auth/authenticator" name="loginFrm" method="post">
+			<table class="tb">
+				<tr>
+					<th>아이디</th>
+					<td><input type="text" name="id"></td>
+				</tr><tr>
+					<th>비밀번호</th>
+					<td>
+						<input type="password" name="pwd" id="login_pwd">
+						<span class="btn_show" _target="#login_pwd"><i class="fa fa-eye" aria-hidden="true"></i></span>
+					</td>
+				</tr><tr>
+					<td colspan="2">
+						<button>LOGIN</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+<%include ../_footer.ejs%>
+
