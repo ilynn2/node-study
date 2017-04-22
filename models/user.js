@@ -1,7 +1,14 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../config/database');
+/*
+| module.exports = function(sequelize, DataTypes) {
+|   var _yourTableName = sequelize.define('모델명', { 특성 }, { 옵션 });
+|   return _yourTableName;
+| };
+*/
 
-//연결 테스트 :)
+const DataTypes = require('sequelize');
+const sequelize = require('../config/database2');
+
+//에러없는지 출력용
 sequelize.authenticate().then(function(err) {
 	console.log('Connection has been established successfully.');
 }).catch(function (err) {
@@ -11,63 +18,45 @@ sequelize.authenticate().then(function(err) {
 
 
 
-//http://docs.sequelizejs.com/en/latest/docs/models-definition/
-
 var User = sequelize.define('user', {
-	idx : 		{type : Sequelize.INTEGER ,primaryKey: true},
-	userid: 	{type : Sequelize.STRING(500)},
-	userpwd:	{type : Sequelize.STRING(1000)},
-	username:	{type : Sequelize.STRING(300)},
-	userbirth:	{type : Sequelize.STRING(10)}
+	idx			: {type : DataTypes.INTEGER(11), primaryKey: true, autoIncrement: true}
+	,id			: {type : DataTypes.STRING(50), allowNull: false, validate : { is: ["^[a-z0-9_-]+$",'i'] }}
+	,pass		: {type : DataTypes.STRING(200), allowNull: false}
+	,name		: {type : DataTypes.STRING(50)}
+	,tel		: {type : DataTypes.STRING(20)}
+	,phone		: {type : DataTypes.STRING(20)}
+	,email		: {type : DataTypes.STRING(100), validate : { isEmail: true }}
+	,birth		: {type : DataTypes.DATEONLY,validate : { isDate: true }}
+	,reg_date	: {type : DataTypes.DATEONLY, validate : { isDate: true }, defaultValue : DataTypes.NOW}
+	,ip			: {type : DataTypes.STRING(15), validate : { isIP: true }}
 },{
-	createdAt: 'joindate',
-	updatedAt: false,
-	paranoid: false,
-	freezeTableName: true,
+	timestamps: false,
 	tableName: 'user'
 });
-
+	
 module.exports = User;
 
 /*
-#==================================================Sequelize 홈페이지 쿼리문예시
-// force: true will drop the table if it already exists
-User.sync({force: true}).then(function () {
-	// Table created
-	return User.create({
-	firstName: 'John',
-	lastName: 'Hancock'
-});
-User.findOne({
-	where: {title: 'aProject'},
-	attributes: ['id', ['name', 'title']]
-}).then(function(project) {
-	// project will be the first entry of the Projects table with the title 'aProject' || null
-	// project.title will contain the name of the project
-})
-User.findAll().then(function(users) {
-	console.log(users)
-})
-#==================================================
-User.findAndCountAll({
-	where: {
-		title: {
-			$like: 'foo%'
-		}
-	},
-	offset: 10,
-	limit: 2
-}).then(function(result) {
-	console.log(result.count);
-	console.log(result.rows);
-});
-#=====================================================
-User.findOne({
-	where: {title: 'aProject'},
-	attributes: ['id', ['name', 'title']]
-}).then(function(project) {
-	// project will be the first entry of the Projects table with the title 'aProject' || null
-	// project.title will contain the name of the project
-})
 
+//SLACK-휘님 : 유저 모델
+//암호화, 아이디 유효성검사해야함
+--변경예정
+
+module.exports = function(sequelize, DataTypes) {
+	return sequelize.define('user', {
+		idx			: {type : DataTypes.INTEGER(11), primaryKey: true, autoIncrement: true}
+		,id			: {type : DataTypes.STRING(50), allowNull: false, validate : { is: ["^[a-z0-9_-]+$",'i'] }}
+		,pass		: {type : DataTypes.STRING(200), allowNull: false}
+		,name		: {type : DataTypes.STRING(50)}
+		,tel		: {type : DataTypes.STRING(20)}
+		,phone		: {type : DataTypes.STRING(20)}
+		,email		: {type : DataTypes.STRING(100), validate : { isEmail: true }}
+		,birth		: {type : DataTypes.DATEONLY,validate : { isDate: true }}
+		,reg_date	: {type : DataTypes.DATEONLY, validate : { isDate: true }, defaultValue : DataTypes.NOW}
+		,ip			: {type : DataTypes.STRING(15), validate : { isIP: true }}
+	},{
+		timestamps: false,
+		tableName: 'user'
+	});
+};
 */

@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var User = require('../models/user');
+var md5 = require('md5');
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
 	res.redirect('/auth/login');
 });
@@ -24,14 +24,14 @@ router.post('/authenticator',function(req,res,next){
 	sess = req.session;
 	
 	User.findOne({
-		where: {userid: req.param('id')}
+		where: {id: req.param('id')}
 	}).then(function(result) {
 		//res.json(project);
-		if(result && result.userpwd==req.param('pwd')){
-			sess.user_id = result.userid;
-			sess.username = result.username;
+		if(result && result.pass== md5(req.param('pwd')) ){
+			sess.user_id = result.id;
+			sess.username = result.name;
 			sess.usernum = result.idx;
-			sess.userbirth = result.userbirth;
+			sess.userbirth = result.birth;
 		}
 		res.redirect('/auth/login');
 	});

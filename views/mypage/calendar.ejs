@@ -1,0 +1,88 @@
+<%include ../_header.ejs%>
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/auth.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/mypage.css">
+<%include ./left.ejs%>
+
+<%
+	moment = calendar[0];
+	week = calendar[1];
+	is_null = week.indexOf(moment(current+'-01').format('ddd'));
+	now = current.split('-');
+	dt = 0;
+	
+	lastDay = calendar[2][now[1]-1];
+	if(now[0]%4==0 && now[1]==2)	lastDay++;
+%>
+
+
+
+<div class="content">
+	<h4>출석체크 현황</h4>
+	
+	<form name="cal">
+		<select name="y">
+<%
+			for(i=2;i>=0;i--){
+				year = moment().format('YYYY')-i;
+%>
+			<option value="<%=year%>" <%=year==now[0]?'selected':''%> ><%=year%></option>
+<%
+			}
+%>
+		</select>년
+		
+		<select name="m">
+<%
+			for(i=1;i<=12;i++){
+				ii = i>=10?i:'0'+i;
+%>
+			<option value="<%=ii%>" <%=now[1]==ii?'selected':''%>><%=ii%></option>
+<%
+			}
+%>
+		</select>월
+	</form>
+
+	<table class="calendar" width=100%;>
+		<tr>
+<%
+		for(i=0;i<is_null;i++){
+%>
+			<td></td>
+<%			dt++;
+		}
+		for(i=1;i<=31;i++){
+			dat = i>=10?i:'0'+i;
+			if(i>lastDay) continue;
+			
+			if(dt%7==0){
+%>
+		</tr><tr>
+<%
+			}
+%>
+			<td class="<%=(dt%7==0?'Sun':dt%7==6?'Sat':'')%>">
+				<span class="date"><%=dat%></span>
+				<div>
+					<%=(current+'-'+dat)==moment().format('YYYY[-]MM[-]DD')?'★':''%>
+				</div>
+			</td>
+<%			dt++;
+		}
+%>		
+		</tr>
+		
+	
+	
+	</table>
+</div>
+
+
+<script>
+$(function(){
+	$('select').on('change',function(){
+		document.forms['cal'].submit();
+	});
+});
+</script>

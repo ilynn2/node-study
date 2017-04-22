@@ -1,5 +1,8 @@
 <%include ../_header.ejs%>
+
 <link rel="stylesheet" type="text/css" href="/stylesheets/auth.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/mypage.css">
+<%include ./left.ejs%>
 
 <div class="content">
 	<h4 style="margin:0px 0px 10px 0px;">회원 정보수정</h4>	
@@ -8,7 +11,7 @@
 			<table class="tb">
 				<tr>
 					<th>아이디</th>
-					<td class="t_left"><%=usr.userid%></td>
+					<td class="t_left"><%=usr.id%></td>
 				</tr><tr>
 					<th>비밀번호</th>
 					<td>
@@ -20,10 +23,10 @@
 					</td>
 				</tr><tr>
 					<th>이름</th>
-					<td><input type="text" name="name" value="<%=usr.username%>"></td>
+					<td><input type="text" name="name" value="<%=usr.name%>"></td>
 				</tr><tr>
 					<th>생일</th>
-					<td><input type="date" name="birth" value="<%=usr.userbirth%>"></td>
+					<td><input type="date" name="birth" value="<%=usr.birth%>"></td>
 				</tr><tr>
 					<td colspan='2'>
 						<input type="hidden" name="seq" value="<%=userdata.usernum%>">

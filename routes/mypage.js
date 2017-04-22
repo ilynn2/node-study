@@ -1,7 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
+
 var bodyParser = require('body-parser');
+
+var User = require('../models/user');
+var Attendance = require('../models/attendance');
+var md5 =require('md5')
 
 //var dateFormat = require('dateformat');
 var moment = require('moment');
@@ -19,9 +23,9 @@ router.get('/', function(req, res, next) {
 router.post('/chkPassword',function(req,res,next){
 	sess = req.session;
 	
-	//쓸데없이 비밀번호 체크하는부분입ㄴㅣ다 auth에서 가져옴 ^*^
+	//쓸데없이 비밀번호 체크하는부분입 auth에서 가져옴 ^*^
 	User.findOne({
-		where: {userid: sess.user_id , userpwd : req.param('pwd')}
+		where: {id: sess.user_id,pass: md5(req.param('pwd'))}
 	}).then(function(result) {
 		if(result){
 			res.cookie('mypage', 1, {
@@ -40,9 +44,9 @@ router.get('/edit',function(req,res){
 	User.findOne({
 		where: {idx : req.session.usernum}
 	}).then(function(result) {
-		//console.log(result.userbirth);
-		//if(result.userbirth)	result.userbirth = moment(result.userbirth).format("yyyy-mm-dd");
-		//console.log(result.userbirth);
+		//console.log(result.birth);
+		if(result.birth)	result.birth = moment(result.birth).format("YYYY[-]MM[-]DD");
+		//console.log(result.birth);
 		res.render('mypage/edit',{usr : result});
 	});
 	
@@ -53,12 +57,12 @@ router.post('/edit',function(req,res){
 	if(!req.session.username)	res.redirect('/auth/login');
 	
 	var upData = {
-		username:req.param('name'),
-		userbirth:req.param('birth')
+		name:req.param('name'),
+		birth:req.param('birth')
 	}
 	
 	if(req.param('changepwd')){
-		upData.userpwd = req.param('pwd');
+		upData.pass = md5(req.param('pwd'));
 	}
 	
 	User.update(upData,{
@@ -70,6 +74,31 @@ router.post('/edit',function(req,res){
 		console.log(err);
 	});
 	
+	
+});
+
+
+router.get('/stamp',function(req,res,next){
+	if(!req.session.username)	res.redirect('/auth/login');
+	
+	//console.log(new moment());
+	
+	var current = (req.param('m'))?
+		(req.param('y')+'-'+req.param('m')):new moment().format("YYYY[-]MM");
+	var Week = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+	var Month = [31,28,31,30,31,30,31,31,30,31,30,31];
+	
+	Attendance.findAndCountAll({
+		where: {
+			idx: req.session.usernum,
+			date: {$between: [current+'-01', current+'-31']}     // DATE BETWEEN A AND B
+		}
+	}).then(function(result) {
+		console.log(result.count);
+		console.log(result.rows);
+		res.render('mypage/calendar',{checked : result, current : current, calendar : [moment,Week,Month]});
+	});
+
 	
 });
 
